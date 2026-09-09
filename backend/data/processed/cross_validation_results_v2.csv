@@ -1,0 +1,5 @@
+rank,model,mae_mean,mae_std,rmse_mean,rmse_std,r2_mean,r2_std
+1,XGBoost,4.8901,0.0545,6.1767,0.0693,0.9099,0.0034
+2,Gradient Boosting,4.9418,0.0707,6.2472,0.101,0.9078,0.0042
+3,Linear Regression,5.6188,0.1213,7.0238,0.1515,0.8834,0.0069
+4,Random Forest,5.7438,0.1183,7.2377,0.1571,0.8762,0.0071

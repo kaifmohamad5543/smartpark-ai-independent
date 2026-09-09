@@ -1,0 +1,31 @@
+flowchart LR
+
+    A["London Borough of Camden<br/>Open Data Portal"] --> B["Camden Parking Bays<br/>CSV Dataset"]
+
+    B --> C["Data Profiling & Validation<br/>8,787 records<br/>26 source columns"]
+
+    C --> D["Integrity Check<br/>Unique Source IDs<br/>Coordinates<br/>SHA-256 Fingerprint"]
+
+    D --> E["Python Import Service<br/>SQLAlchemy PostgreSQL Upsert"]
+
+    E --> F[("PostgreSQL<br/>external_parking_bays<br/>8,787 records")]
+
+    F --> G["FastAPI Open Data Service"]
+
+    G --> H["GET /api/open-data/parking-bays"]
+    G --> I["GET /api/open-data/parking-bays/stats"]
+    G --> J["GET /api/open-data/parking-bays/{source_identifier}"]
+
+    H --> K["Vue 3 Parking View"]
+    I --> K
+    J --> K
+
+    K --> L["Leaflet Camden Open Data Layer<br/>Up to 500 visible records"]
+
+    L --> M["User Map Interface<br/>Infrastructure records displayed<br/>separately from bookable locations"]
+
+    N["SmartPark Operational Data<br/>parking_locations"] --> O["Bookable SmartPark Map Layer"]
+
+    O --> M
+
+    P["Important Research Boundary<br/>Camden data = genuine parking infrastructure<br/>NOT real-time occupancy<br/>NOT ML validation labels"] -.-> L

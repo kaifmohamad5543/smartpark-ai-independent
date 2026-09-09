@@ -1,0 +1,67 @@
+flowchart LR
+
+    U[User]
+    A[Administrator]
+
+    subgraph FRONTEND["Vue 3 Frontend"]
+        UI[Views and Components]
+        ROUTER[Vue Router]
+        STORE[Authentication Store]
+        APICLIENT[Axios API Client]
+    end
+
+    subgraph BACKEND["FastAPI Backend"]
+        AUTH[Authentication and RBAC]
+        PARKING[Parking Management]
+        RES[Reservation Service]
+        WALLET[Wallet and Payments]
+        REVIEWS[Reviews]
+        NOTIFY[Notifications]
+        RECOMMEND[Parking Recommendation]
+        PRICING[AI-Assisted Dynamic Pricing]
+        ANALYTICS[Admin Analytics]
+        MLAPI[Prediction Service]
+    end
+
+    subgraph DATA["Persistence Layer"]
+        ORM[SQLAlchemy ORM]
+        DB[(PostgreSQL)]
+        MIG[Alembic Migrations]
+    end
+
+    subgraph AI["Machine Learning Layer"]
+        MODEL[XGBoost Demand Model]
+        MODELFILE[Joblib Model Artifact]
+    end
+
+    U --> UI
+    A --> UI
+    UI --> ROUTER
+    ROUTER --> STORE
+    UI --> APICLIENT
+    APICLIENT -->|REST / JSON| AUTH
+    APICLIENT -->|REST / JSON| PARKING
+    APICLIENT -->|REST / JSON| RES
+    APICLIENT -->|REST / JSON| WALLET
+    APICLIENT -->|REST / JSON| REVIEWS
+    APICLIENT -->|REST / JSON| NOTIFY
+    APICLIENT -->|REST / JSON| RECOMMEND
+    APICLIENT -->|REST / JSON| ANALYTICS
+    APICLIENT -->|REST / JSON| MLAPI
+    RES --> PRICING
+    PRICING --> MLAPI
+    RECOMMEND --> MLAPI
+    ANALYTICS --> MLAPI
+    AUTH --> ORM
+    PARKING --> ORM
+    RES --> ORM
+    WALLET --> ORM
+    REVIEWS --> ORM
+    NOTIFY --> ORM
+    RECOMMEND --> ORM
+    ANALYTICS --> ORM
+    MLAPI --> ORM
+    ORM --> DB
+    MIG --> DB
+    MLAPI --> MODEL
+    MODEL --> MODELFILE

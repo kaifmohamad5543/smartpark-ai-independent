@@ -1,0 +1,56 @@
+[
+    {
+        "feature": "previous_occupancy",
+        "display_name": "Previous Occupancy",
+        "importance": 0.242848,
+        "importance_percentage": 24.28
+    },
+    {
+        "feature": "traffic_level",
+        "display_name": "Traffic Level",
+        "importance": 0.233286,
+        "importance_percentage": 23.33
+    },
+    {
+        "feature": "event_level",
+        "display_name": "Nearby Event Level",
+        "importance": 0.189072,
+        "importance_percentage": 18.91
+    },
+    {
+        "feature": "available_spaces",
+        "display_name": "Available Spaces",
+        "importance": 0.181226,
+        "importance_percentage": 18.12
+    },
+    {
+        "feature": "parking_location",
+        "display_name": "Parking Location",
+        "importance": 0.048443,
+        "importance_percentage": 4.84
+    },
+    {
+        "feature": "weather",
+        "display_name": "Weather",
+        "importance": 0.038953,
+        "importance_percentage": 3.9
+    },
+    {
+        "feature": "hour",
+        "display_name": "Hour of Day",
+        "importance": 0.031929,
+        "importance_percentage": 3.19
+    },
+    {
+        "feature": "parking_price",
+        "display_name": "Parking Price",
+        "importance": 0.021207,
+        "importance_percentage": 2.12
+    },
+    {
+        "feature": "day_of_week",
+        "display_name": "Day of Week",
+        "importance": 0.013035,
+        "importance_percentage": 1.3
+    }
+]

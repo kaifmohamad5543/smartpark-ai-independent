@@ -1,0 +1,63 @@
+SMARTPARK AI - REAL DATASET PROFILE
+=======================================================
+
+Dataset: Camden Parking Bays
+Source: London Borough of Camden Open Data
+CSV records: 8,787
+Columns: 26
+Valid coordinates: 8,787
+Declared parking spaces: 35,010
+Records with postcode: 8,787
+Records with tariff: 1,360
+Records with operating times: 8,787
+Records with controlled parking zone: 8,787
+Unique source identifiers: 8,787
+Duplicate source identifiers: 0
+
+GEOGRAPHIC COVERAGE
+-------------------------------------------------------
+Latitude range: 51.512998 to 51.571519
+Longitude range: -0.212965 to -0.106455
+
+TOP RESTRICTION TYPES
+-------------------------------------------------------
+permit holders only: 2,979
+resident permit holders only: 2,385
+paid-for: 743
+disabled (blue badge): 631
+paid-for (solo motorcycles only): 323
+electric vehicle recharging: 281
+dockless bike hire: 198
+loading: 186
+car club: 165
+paid-for / resident permit holders: 150
+permit holders ev charging only: 141
+disabled (dedicated): 135
+paid-for / permit holders: 129
+cycle hire: 49
+taxi rank: 41
+
+TOP ROADS BY PARKING-BAY RECORDS
+-------------------------------------------------------
+Goldhurst Terrace: 72
+Redington Road: 70
+Fordwych Road: 65
+Priory Road: 61
+Eton Avenue: 58
+King Henry's Road: 54
+Greencroft Gardens: 47
+Fitzjohn's Avenue: 47
+Fellows Road: 46
+Compayne Gardens: 45
+Regent's Park Road: 45
+Netherhall Gardens: 45
+Canfield Gardens: 44
+Chalton Street: 44
+Heath Drive: 42
+
+DATA PROVENANCE
+-------------------------------------------------------
+Source organisation: London Borough of Camden
+Dataset type: Genuine public London parking infrastructure data
+SmartPark use: Parking infrastructure and geographic evidence
+Important: This dataset is NOT real-time occupancy data.

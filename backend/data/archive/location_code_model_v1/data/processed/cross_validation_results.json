@@ -1,0 +1,38 @@
+[
+    {
+        "model": "Gradient Boosting Regression",
+        "mean_mae": 4.9262,
+        "std_mae": 0.1006,
+        "mean_rmse": 6.1592,
+        "std_rmse": 0.1044,
+        "mean_r2": 0.9029,
+        "std_r2": 0.0042
+    },
+    {
+        "model": "XGBoost Regression",
+        "mean_mae": 4.9869,
+        "std_mae": 0.0901,
+        "mean_rmse": 6.2437,
+        "std_rmse": 0.1162,
+        "mean_r2": 0.9002,
+        "std_r2": 0.0042
+    },
+    {
+        "model": "Linear Regression",
+        "mean_mae": 5.8555,
+        "std_mae": 0.0694,
+        "mean_rmse": 7.2746,
+        "std_rmse": 0.0922,
+        "mean_r2": 0.8645,
+        "std_r2": 0.0064
+    },
+    {
+        "model": "Random Forest Regression",
+        "mean_mae": 5.9899,
+        "std_mae": 0.109,
+        "mean_rmse": 7.4366,
+        "std_rmse": 0.1444,
+        "mean_r2": 0.8585,
+        "std_r2": 0.0051
+    }
+]

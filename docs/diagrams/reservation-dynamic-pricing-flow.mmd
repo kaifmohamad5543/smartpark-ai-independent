@@ -1,0 +1,46 @@
+flowchart TD
+
+    U[User selects parking location]
+    F[Choose vehicle and reservation time]
+    SUBMIT[Submit reservation request]
+    VALIDATE[Validate user, time, opening hours and availability]
+    CHECK{Dynamic pricing enabled?}
+    FIXED[Use fixed hourly rate]
+    AVAIL[Calculate current occupancy]
+    PREDICT[Predict future occupancy with XGBoost]
+    PRICE[Calculate bounded dynamic pricing multiplier]
+    SNAPSHOT[Store pricing snapshot]
+    SPACE[Allocate suitable parking space]
+    RES[Create confirmed reservation]
+    CODE[Generate booking code / barcode]
+    CONFIRM[Display reservation confirmation]
+    CHECKIN[User checks in]
+    SESSION[Parking session active]
+    CHECKOUT[User checks out]
+    COST[Calculate final cost using locked hourly rate]
+    PAYMENT[Record payment / wallet transaction]
+    COMPLETE[Reservation completed]
+
+    U --> F
+    F --> SUBMIT
+    SUBMIT --> VALIDATE
+    VALIDATE --> CHECK
+    CHECK -->|No| FIXED
+    CHECK -->|Yes| AVAIL
+    AVAIL --> PREDICT
+    PREDICT --> PRICE
+    PRICE --> SNAPSHOT
+    FIXED --> SNAPSHOT
+    SNAPSHOT --> SPACE
+    SPACE --> RES
+    RES --> CODE
+    CODE --> CONFIRM
+    CONFIRM --> CHECKIN
+    CHECKIN --> SESSION
+    SESSION --> CHECKOUT
+    CHECKOUT --> COST
+    COST --> PAYMENT
+    PAYMENT --> COMPLETE
+
+    PRICE -. bounded .-> LIMIT["Multiplier range 0.75× to 1.50×"]
+    SNAPSHOT -. stores .-> META["Base rate<br/>Applied rate<br/>Multiplier<br/>Current occupancy<br/>Predicted occupancy<br/>Model version"]

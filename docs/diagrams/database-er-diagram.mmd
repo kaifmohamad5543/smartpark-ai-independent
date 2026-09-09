@@ -1,0 +1,224 @@
+erDiagram
+    external_parking_bays {
+        uuid id PK
+        string source_identifier
+        string restriction_type
+        int parking_spaces
+        string times_of_operation
+        string maximum_stay
+        text tariff
+        string cashless_identifier
+        string road_name
+        string postcode
+        string controlled_parking_zone
+        text valid_parking_permits
+        float parking_bay_length_metres
+        float easting
+        float northing
+        float longitude
+        float latitude
+        string spatial_accuracy
+        datetime source_last_uploaded
+        text organisation_uri
+        string source_dataset
+        string source_organisation
+        text source_url
+        datetime imported_at
+    }
+    notifications {
+        uuid id PK
+        uuid user_id FK
+        uuid reservation_id FK
+        string notification_type
+        string title
+        text message
+        boolean is_read
+        datetime created_at
+        datetime read_at
+    }
+    parking_locations {
+        uuid id PK
+        string name
+        string address
+        string city
+        string postcode
+        float latitude
+        float longitude
+        int total_spaces
+        decimal hourly_rate
+        time opening_time
+        time closing_time
+        boolean is_24_hours
+        boolean is_active
+        datetime created_at
+        datetime updated_at
+        boolean dynamic_pricing_enabled
+    }
+    parking_sessions {
+        uuid id PK
+        uuid reservation_id FK
+        uuid user_id FK
+        uuid parking_location_id FK
+        uuid parking_space_id FK
+        datetime started_at
+        datetime ended_at
+        int duration_minutes
+        decimal final_cost
+        string status
+        datetime created_at
+    }
+    parking_spaces {
+        uuid id PK
+        uuid parking_location_id FK
+        string space_number
+        string space_type
+        boolean is_available
+        boolean has_ev_charging
+        boolean is_accessible
+        boolean is_active
+        datetime created_at
+        datetime updated_at
+        string ev_charger_status
+        datetime ev_charger_updated_at
+    }
+    payments {
+        uuid id PK
+        uuid user_id FK
+        uuid reservation_id FK
+        uuid parking_session_id FK
+        string payment_reference
+        string transaction_type
+        string payment_method
+        decimal amount
+        string status
+        datetime paid_at
+        datetime created_at
+        uuid related_payment_id FK
+    }
+    predictions {
+        uuid id PK
+        uuid user_id FK
+        uuid parking_location_id FK
+        int hour
+        int day_of_week
+        float previous_occupancy
+        int traffic_level
+        int weather
+        int event_level
+        decimal parking_price
+        int available_spaces
+        float predicted_occupancy
+        float predicted_availability
+        datetime created_at
+        float current_occupancy
+        int total_spaces
+        string model_version
+    }
+    reservations {
+        uuid id PK
+        uuid user_id FK
+        uuid vehicle_id FK
+        uuid parking_location_id FK
+        uuid parking_space_id FK
+        string booking_code
+        datetime reserved_from
+        datetime reserved_until
+        string status
+        decimal estimated_cost
+        datetime checked_in_at
+        datetime checked_out_at
+        datetime cancelled_at
+        datetime created_at
+        datetime updated_at
+        decimal final_cost
+        decimal base_hourly_rate
+        decimal applied_hourly_rate
+        decimal pricing_multiplier
+        decimal current_occupancy_at_booking
+        decimal predicted_occupancy_at_booking
+        string pricing_model_version
+    }
+    reviews {
+        uuid id PK
+        uuid user_id FK
+        uuid parking_location_id FK
+        int rating
+        text comment
+        datetime created_at
+        datetime updated_at
+    }
+    users {
+        uuid id PK
+        string full_name
+        string email
+        string hashed_password
+        string role
+        boolean is_active
+        datetime created_at
+        datetime updated_at
+    }
+    vehicles {
+        uuid id PK
+        uuid user_id FK
+        string registration_number
+        string make
+        string model
+        string colour
+        string vehicle_type
+        boolean is_default
+    }
+    wallet_transactions {
+        uuid id PK
+        uuid wallet_id FK
+        uuid user_id FK
+        uuid reservation_id FK
+        uuid payment_id FK
+        string transaction_reference
+        string transaction_type
+        string direction
+        decimal amount
+        decimal balance_before
+        decimal balance_after
+        text description
+        datetime created_at
+    }
+    wallets {
+        uuid id PK
+        uuid user_id FK
+        decimal balance
+        datetime created_at
+        datetime updated_at
+    }
+    reservations ||--o{ notifications : "references"
+    users ||--o{ notifications : "references"
+    parking_locations ||--o{ parking_sessions : "references"
+    parking_spaces ||--o{ parking_sessions : "references"
+    reservations ||--o{ parking_sessions : "references"
+    users ||--o{ parking_sessions : "references"
+    parking_locations ||--o{ parking_spaces : "references"
+    parking_sessions ||--o{ payments : "references"
+    payments ||--o{ payments : "references"
+    reservations ||--o{ payments : "references"
+    users ||--o{ payments : "references"
+    parking_locations ||--o{ predictions : "references"
+    users ||--o{ predictions : "references"
+    parking_locations ||--o{ reservations : "references"
+    parking_spaces ||--o{ reservations : "references"
+    users ||--o{ reservations : "references"
+    vehicles ||--o{ reservations : "references"
+    parking_locations ||--o{ reviews : "references"
+    users ||--o{ reviews : "references"
+    users ||--o{ vehicles : "references"
+    payments ||--o{ wallet_transactions : "references"
+    reservations ||--o{ wallet_transactions : "references"
+    users ||--o{ wallet_transactions : "references"
+    wallets ||--o{ wallet_transactions : "references"
+    users ||--o{ wallets : "references"
+
+%% SmartPark AI final PostgreSQL schema
+%% Generated from the live database.
+%% external_parking_bays stores genuine
+%% London Borough of Camden public
+%% parking infrastructure records.
+%% It is intentionally separate from
+%% SmartPark bookable parking_locations.

@@ -1,0 +1,26 @@
+[
+    {
+        "model": "Gradient Boosting Regression",
+        "mae": 4.8452,
+        "rmse": 6.087,
+        "r2": 0.9099
+    },
+    {
+        "model": "XGBoost Regression",
+        "mae": 4.9282,
+        "rmse": 6.1796,
+        "r2": 0.9072
+    },
+    {
+        "model": "Linear Regression",
+        "mae": 5.7918,
+        "rmse": 7.249,
+        "r2": 0.8723
+    },
+    {
+        "model": "Random Forest Regression",
+        "mae": 5.9407,
+        "rmse": 7.4077,
+        "r2": 0.8666
+    }
+]

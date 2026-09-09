@@ -1,0 +1,65 @@
+===== SMARTPARK AI FINAL ALEMBIC MIGRATION EVIDENCE =====
+
+===== CURRENT REVISION =====
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+1383148ede99 (head)
+
+===== MIGRATION HISTORY =====
+Rev: 1383148ede99 (head)
+Parent: c8a21d45e901
+Path: /Users/mohamadkaif/smartpark-ai-independent/backend/alembic/versions/1383148ede99_add_external_camden_parking_bays.py
+
+    add external Camden parking bays
+    
+    Revision ID: 1383148ede99
+    Revises: c8a21d45e901
+    Create Date: 2026-09-04 12:42:27.882972
+
+Rev: c8a21d45e901
+Parent: b7f3d91a4c22
+Path: /Users/mohamadkaif/smartpark-ai-independent/backend/alembic/versions/c8a21d45e901_add_dynamic_pricing_switch.py
+
+    add dynamic pricing switch
+    
+    Revision ID: c8a21d45e901
+    Revises: b7f3d91a4c22
+
+Rev: b7f3d91a4c22
+Parent: 9c4e1a7b2f10
+Path: /Users/mohamadkaif/smartpark-ai-independent/backend/alembic/versions/b7f3d91a4c22_add_dynamic_pricing_to_reservations.py
+
+    add dynamic pricing to reservations
+    
+    Revision ID: b7f3d91a4c22
+    Revises: 9c4e1a7b2f10
+
+Rev: 9c4e1a7b2f10
+Parent: 7138a812e802
+Path: /Users/mohamadkaif/smartpark-ai-independent/backend/alembic/versions/9c4e1a7b2f10_add_ev_charger_live_status.py
+
+    add EV charger live status
+    
+    Revision ID: 9c4e1a7b2f10
+    Revises: 7138a812e802
+
+Rev: 7138a812e802
+Parent: 3bb757555d38
+Path: /Users/mohamadkaif/smartpark-ai-independent/backend/alembic/versions/7138a812e802_add_prediction_reproducibility_metadata.py
+
+    add prediction reproducibility metadata
+    
+    Revision ID: 7138a812e802
+    Revises: 3bb757555d38
+    Create Date: 2026-08-28 15:42:33.274355
+
+Rev: 3bb757555d38
+Parent: <base>
+Path: /Users/mohamadkaif/smartpark-ai-independent/backend/alembic/versions/3bb757555d38_initial_smartpark_schema.py
+
+    initial smartpark schema
+    
+    Revision ID: 3bb757555d38
+    Revises: 
+    Create Date: 2026-08-28 13:57:37.147707
+

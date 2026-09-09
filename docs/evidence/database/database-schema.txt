@@ -1,0 +1,391 @@
+SMARTPARK AI - FINAL POSTGRESQL DATABASE SCHEMA
+======================================================================
+
+Total database tables: 14
+Application tables: 13
+
+======================================================================
+TABLE: alembic_version
+======================================================================
+Columns: 1
+
+  version_num | VARCHAR(32) | NOT NULL
+
+Primary key: version_num
+
+======================================================================
+TABLE: external_parking_bays
+======================================================================
+Columns: 24
+
+  id | UUID | NOT NULL
+  source_identifier | VARCHAR(100) | NOT NULL
+  restriction_type | VARCHAR(150) | NOT NULL
+  parking_spaces | INTEGER | NULL
+  times_of_operation | VARCHAR(255) | NULL
+  maximum_stay | VARCHAR(100) | NULL
+  tariff | TEXT | NULL
+  cashless_identifier | VARCHAR(100) | NULL
+  road_name | VARCHAR(150) | NOT NULL
+  postcode | VARCHAR(20) | NULL
+  controlled_parking_zone | VARCHAR(50) | NULL
+  valid_parking_permits | TEXT | NULL
+  parking_bay_length_metres | DOUBLE PRECISION | NULL
+  easting | DOUBLE PRECISION | NULL
+  northing | DOUBLE PRECISION | NULL
+  longitude | DOUBLE PRECISION | NOT NULL
+  latitude | DOUBLE PRECISION | NOT NULL
+  spatial_accuracy | VARCHAR(100) | NULL
+  source_last_uploaded | TIMESTAMP | NULL
+  organisation_uri | TEXT | NULL
+  source_dataset | VARCHAR(150) | NOT NULL
+  source_organisation | VARCHAR(150) | NOT NULL
+  source_url | TEXT | NOT NULL
+  imported_at | TIMESTAMP | NOT NULL
+
+Primary key: id
+
+Indexes:
+  ix_external_parking_bays_controlled_parking_zone (controlled_parking_zone)
+  ix_external_parking_bays_latitude (latitude)
+  ix_external_parking_bays_longitude (longitude)
+  ix_external_parking_bays_postcode (postcode)
+  ix_external_parking_bays_road_name (road_name)
+  ix_external_parking_bays_source_identifier (source_identifier) UNIQUE
+
+======================================================================
+TABLE: notifications
+======================================================================
+Columns: 9
+
+  id | UUID | NOT NULL
+  user_id | UUID | NOT NULL
+  reservation_id | UUID | NULL
+  notification_type | VARCHAR(50) | NOT NULL
+  title | VARCHAR(150) | NOT NULL
+  message | TEXT | NOT NULL
+  is_read | BOOLEAN | NOT NULL
+  created_at | TIMESTAMP | NOT NULL
+  read_at | TIMESTAMP | NULL
+
+Primary key: id
+
+Foreign keys:
+  reservation_id -> reservations.id
+  user_id -> users.id
+
+Indexes:
+  ix_notifications_reservation_id (reservation_id)
+  ix_notifications_user_id (user_id)
+
+======================================================================
+TABLE: parking_locations
+======================================================================
+Columns: 16
+
+  id | UUID | NOT NULL
+  name | VARCHAR(150) | NOT NULL
+  address | VARCHAR(255) | NOT NULL
+  city | VARCHAR(100) | NOT NULL
+  postcode | VARCHAR(20) | NOT NULL
+  latitude | DOUBLE PRECISION | NOT NULL
+  longitude | DOUBLE PRECISION | NOT NULL
+  total_spaces | INTEGER | NOT NULL
+  hourly_rate | NUMERIC(8, 2) | NOT NULL
+  opening_time | TIME | NULL
+  closing_time | TIME | NULL
+  is_24_hours | BOOLEAN | NOT NULL
+  is_active | BOOLEAN | NOT NULL
+  created_at | TIMESTAMP | NOT NULL
+  updated_at | TIMESTAMP | NOT NULL
+  dynamic_pricing_enabled | BOOLEAN | NOT NULL
+
+Primary key: id
+
+Indexes:
+  parking_locations_name_key (name) UNIQUE
+
+======================================================================
+TABLE: parking_sessions
+======================================================================
+Columns: 11
+
+  id | UUID | NOT NULL
+  reservation_id | UUID | NOT NULL
+  user_id | UUID | NOT NULL
+  parking_location_id | UUID | NOT NULL
+  parking_space_id | UUID | NOT NULL
+  started_at | TIMESTAMP | NOT NULL
+  ended_at | TIMESTAMP | NULL
+  duration_minutes | INTEGER | NULL
+  final_cost | NUMERIC(10, 2) | NULL
+  status | VARCHAR(30) | NOT NULL
+  created_at | TIMESTAMP | NOT NULL
+
+Primary key: id
+
+Foreign keys:
+  parking_location_id -> parking_locations.id
+  parking_space_id -> parking_spaces.id
+  reservation_id -> reservations.id
+  user_id -> users.id
+
+Indexes:
+  ix_parking_sessions_parking_location_id (parking_location_id)
+  ix_parking_sessions_reservation_id (reservation_id) UNIQUE
+  ix_parking_sessions_user_id (user_id)
+
+======================================================================
+TABLE: parking_spaces
+======================================================================
+Columns: 12
+
+  id | UUID | NOT NULL
+  parking_location_id | UUID | NOT NULL
+  space_number | VARCHAR(30) | NOT NULL
+  space_type | VARCHAR(30) | NOT NULL
+  is_available | BOOLEAN | NOT NULL
+  has_ev_charging | BOOLEAN | NOT NULL
+  is_accessible | BOOLEAN | NOT NULL
+  is_active | BOOLEAN | NOT NULL
+  created_at | TIMESTAMP | NOT NULL
+  updated_at | TIMESTAMP | NOT NULL
+  ev_charger_status | VARCHAR(30) | NULL
+  ev_charger_updated_at | TIMESTAMP | NULL
+
+Primary key: id
+
+Foreign keys:
+  parking_location_id -> parking_locations.id
+
+Indexes:
+  ix_parking_spaces_parking_location_id (parking_location_id)
+  uq_parking_location_space_number (parking_location_id, space_number) UNIQUE
+
+======================================================================
+TABLE: payments
+======================================================================
+Columns: 12
+
+  id | UUID | NOT NULL
+  user_id | UUID | NOT NULL
+  reservation_id | UUID | NOT NULL
+  parking_session_id | UUID | NULL
+  payment_reference | VARCHAR(50) | NOT NULL
+  transaction_type | VARCHAR(30) | NOT NULL
+  payment_method | VARCHAR(30) | NOT NULL
+  amount | NUMERIC(10, 2) | NOT NULL
+  status | VARCHAR(30) | NOT NULL
+  paid_at | TIMESTAMP | NULL
+  created_at | TIMESTAMP | NOT NULL
+  related_payment_id | UUID | NULL
+
+Primary key: id
+
+Foreign keys:
+  parking_session_id -> parking_sessions.id
+  related_payment_id -> payments.id
+  reservation_id -> reservations.id
+  user_id -> users.id
+
+Indexes:
+  ix_payments_parking_session_id (parking_session_id)
+  ix_payments_payment_reference (payment_reference) UNIQUE
+  ix_payments_related_payment_id (related_payment_id)
+  ix_payments_reservation_id (reservation_id)
+  ix_payments_user_id (user_id)
+
+======================================================================
+TABLE: predictions
+======================================================================
+Columns: 17
+
+  id | UUID | NOT NULL
+  user_id | UUID | NOT NULL
+  parking_location_id | UUID | NOT NULL
+  hour | INTEGER | NOT NULL
+  day_of_week | INTEGER | NOT NULL
+  previous_occupancy | DOUBLE PRECISION | NOT NULL
+  traffic_level | INTEGER | NOT NULL
+  weather | INTEGER | NOT NULL
+  event_level | INTEGER | NOT NULL
+  parking_price | NUMERIC(8, 2) | NOT NULL
+  available_spaces | INTEGER | NOT NULL
+  predicted_occupancy | DOUBLE PRECISION | NOT NULL
+  predicted_availability | DOUBLE PRECISION | NOT NULL
+  created_at | TIMESTAMP | NOT NULL
+  current_occupancy | DOUBLE PRECISION | NULL
+  total_spaces | INTEGER | NULL
+  model_version | VARCHAR(50) | NULL
+
+Primary key: id
+
+Foreign keys:
+  parking_location_id -> parking_locations.id
+  user_id -> users.id
+
+Indexes:
+  ix_predictions_parking_location_id (parking_location_id)
+  ix_predictions_user_id (user_id)
+
+======================================================================
+TABLE: reservations
+======================================================================
+Columns: 22
+
+  id | UUID | NOT NULL
+  user_id | UUID | NOT NULL
+  vehicle_id | UUID | NOT NULL
+  parking_location_id | UUID | NOT NULL
+  parking_space_id | UUID | NOT NULL
+  booking_code | VARCHAR(20) | NOT NULL
+  reserved_from | TIMESTAMP | NOT NULL
+  reserved_until | TIMESTAMP | NOT NULL
+  status | VARCHAR(30) | NOT NULL
+  estimated_cost | NUMERIC(10, 2) | NOT NULL
+  checked_in_at | TIMESTAMP | NULL
+  checked_out_at | TIMESTAMP | NULL
+  cancelled_at | TIMESTAMP | NULL
+  created_at | TIMESTAMP | NOT NULL
+  updated_at | TIMESTAMP | NOT NULL
+  final_cost | NUMERIC(10, 2) | NULL
+  base_hourly_rate | NUMERIC(10, 2) | NULL
+  applied_hourly_rate | NUMERIC(10, 2) | NULL
+  pricing_multiplier | NUMERIC(6, 4) | NULL
+  current_occupancy_at_booking | NUMERIC(6, 2) | NULL
+  predicted_occupancy_at_booking | NUMERIC(6, 2) | NULL
+  pricing_model_version | VARCHAR(50) | NULL
+
+Primary key: id
+
+Foreign keys:
+  parking_location_id -> parking_locations.id
+  parking_space_id -> parking_spaces.id
+  user_id -> users.id
+  vehicle_id -> vehicles.id
+
+Indexes:
+  ix_reservations_booking_code (booking_code) UNIQUE
+  ix_reservations_parking_location_id (parking_location_id)
+  ix_reservations_parking_space_id (parking_space_id)
+  ix_reservations_status (status)
+  ix_reservations_user_id (user_id)
+  ix_reservations_vehicle_id (vehicle_id)
+
+======================================================================
+TABLE: reviews
+======================================================================
+Columns: 7
+
+  id | UUID | NOT NULL
+  user_id | UUID | NOT NULL
+  parking_location_id | UUID | NOT NULL
+  rating | INTEGER | NOT NULL
+  comment | TEXT | NULL
+  created_at | TIMESTAMP | NOT NULL
+  updated_at | TIMESTAMP | NOT NULL
+
+Primary key: id
+
+Foreign keys:
+  parking_location_id -> parking_locations.id
+  user_id -> users.id
+
+Indexes:
+  ix_reviews_parking_location_id (parking_location_id)
+  ix_reviews_user_id (user_id)
+  uq_user_parking_review (user_id, parking_location_id) UNIQUE
+
+======================================================================
+TABLE: users
+======================================================================
+Columns: 8
+
+  id | UUID | NOT NULL
+  full_name | VARCHAR(120) | NOT NULL
+  email | VARCHAR(255) | NOT NULL
+  hashed_password | VARCHAR(255) | NOT NULL
+  role | VARCHAR(20) | NOT NULL
+  is_active | BOOLEAN | NOT NULL
+  created_at | TIMESTAMP | NOT NULL
+  updated_at | TIMESTAMP | NOT NULL
+
+Primary key: id
+
+Indexes:
+  ix_users_email (email) UNIQUE
+
+======================================================================
+TABLE: vehicles
+======================================================================
+Columns: 8
+
+  id | UUID | NOT NULL
+  user_id | UUID | NOT NULL
+  registration_number | VARCHAR(20) | NOT NULL
+  make | VARCHAR(60) | NOT NULL
+  model | VARCHAR(60) | NOT NULL
+  colour | VARCHAR(40) | NOT NULL
+  vehicle_type | VARCHAR(30) | NOT NULL
+  is_default | BOOLEAN | NOT NULL
+
+Primary key: id
+
+Foreign keys:
+  user_id -> users.id
+
+Indexes:
+  ix_vehicles_user_id (user_id)
+
+======================================================================
+TABLE: wallet_transactions
+======================================================================
+Columns: 13
+
+  id | UUID | NOT NULL
+  wallet_id | UUID | NOT NULL
+  user_id | UUID | NOT NULL
+  reservation_id | UUID | NULL
+  payment_id | UUID | NULL
+  transaction_reference | VARCHAR(50) | NOT NULL
+  transaction_type | VARCHAR(30) | NOT NULL
+  direction | VARCHAR(10) | NOT NULL
+  amount | NUMERIC(10, 2) | NOT NULL
+  balance_before | NUMERIC(10, 2) | NOT NULL
+  balance_after | NUMERIC(10, 2) | NOT NULL
+  description | TEXT | NULL
+  created_at | TIMESTAMP | NOT NULL
+
+Primary key: id
+
+Foreign keys:
+  payment_id -> payments.id
+  reservation_id -> reservations.id
+  user_id -> users.id
+  wallet_id -> wallets.id
+
+Indexes:
+  ix_wallet_transactions_payment_id (payment_id)
+  ix_wallet_transactions_reservation_id (reservation_id)
+  ix_wallet_transactions_transaction_reference (transaction_reference) UNIQUE
+  ix_wallet_transactions_user_id (user_id)
+  ix_wallet_transactions_wallet_id (wallet_id)
+
+======================================================================
+TABLE: wallets
+======================================================================
+Columns: 5
+
+  id | UUID | NOT NULL
+  user_id | UUID | NOT NULL
+  balance | NUMERIC(10, 2) | NOT NULL
+  created_at | TIMESTAMP | NOT NULL
+  updated_at | TIMESTAMP | NOT NULL
+
+Primary key: id
+
+Foreign keys:
+  user_id -> users.id
+
+Indexes:
+  ix_wallets_user_id (user_id) UNIQUE

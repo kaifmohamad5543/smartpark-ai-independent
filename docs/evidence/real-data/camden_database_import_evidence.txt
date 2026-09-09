@@ -1,0 +1,27 @@
+SMARTPARK AI - REAL DATA DATABASE IMPORT
+============================================================
+
+Dataset: Camden Parking Bays
+Source organisation: London Borough of Camden
+Source URL: https://opendata.camden.gov.uk/resource/7hiv-3r9k
+
+CSV valid records: 8,787
+PostgreSQL records: 8,787
+Declared parking spaces: 35,010
+Distinct roads: 856
+Paid-for bay records: 743
+EV charging bay records: 281
+
+SHA-256: 73ee2879e29dca6515a6b0549c4c96f8be3efc5ea38a8da1c203193682163450
+
+Database table: external_parking_bays
+Import method: SQLAlchemy PostgreSQL upsert
+Conflict key: source_identifier
+
+DATA INTERPRETATION
+------------------------------------------------------------
+These records represent genuine Camden parking infrastructure.
+They do not represent real-time parking occupancy.
+
+IMPORT VALIDATION: PASS
+CSV valid-record count matches PostgreSQL row count.

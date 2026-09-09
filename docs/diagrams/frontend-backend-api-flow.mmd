@@ -1,0 +1,31 @@
+sequenceDiagram
+    actor User
+    participant Vue as Vue Frontend
+    participant Axios as Axios Client
+    participant API as FastAPI Backend
+    participant Auth as JWT/RBAC
+    participant Service as Business Services
+    participant ML as XGBoost Prediction
+    participant DB as PostgreSQL
+
+    User->>Vue: Interact with application
+    Vue->>Axios: Build API request
+    Axios->>API: HTTP request + JSON
+    API->>Auth: Validate JWT and permissions
+    Auth-->>API: Authenticated user / role
+    API->>Service: Execute requested operation
+    Service->>DB: Read or update data
+    DB-->>Service: Database result
+
+    opt AI prediction required
+        Service->>ML: Send prediction features
+        ML-->>Service: Predicted occupancy
+    end
+
+    Service-->>API: Business result
+    API-->>Axios: JSON response
+    Axios-->>Vue: Parsed response
+    Vue-->>User: Update interface
+
+    Note over API,DB: Examples: reservations, parking, wallet, reviews, notifications
+    Note over Service,ML: AI used for demand prediction, recommendations and dynamic pricing

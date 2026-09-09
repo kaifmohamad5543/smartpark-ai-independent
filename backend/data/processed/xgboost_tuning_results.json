@@ -1,0 +1,21 @@
+{
+    "model": "Tuned XGBoost Regression",
+    "search_iterations": 25,
+    "cross_validation_folds": 5,
+    "training_rows": 4000,
+    "testing_rows": 1000,
+    "best_cross_validation_rmse": 6.133,
+    "test_mae": 4.7892,
+    "test_rmse": 6.0514,
+    "test_r2": 0.911,
+    "best_parameters": {
+        "subsample": 0.8,
+        "reg_lambda": 3.0,
+        "reg_alpha": 0.01,
+        "n_estimators": 500,
+        "min_child_weight": 7,
+        "max_depth": 2,
+        "learning_rate": 0.1,
+        "colsample_bytree": 0.8
+    }
+}

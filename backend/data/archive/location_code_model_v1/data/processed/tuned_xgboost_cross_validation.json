@@ -1,0 +1,10 @@
+{
+    "model": "Tuned XGBoost Regression",
+    "folds": 5,
+    "mean_mae": 4.8575,
+    "std_mae": 0.0933,
+    "mean_rmse": 6.0813,
+    "std_rmse": 0.1089,
+    "mean_r2": 0.9054,
+    "std_r2": 0.0034
+}

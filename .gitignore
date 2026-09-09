@@ -1,0 +1,48 @@
+# macOS
+.DS_Store
+
+# Secrets / environment files
+.env
+.env.*
+!.env.example
+backend/.env
+frontend/.env
+
+# Python
+backend/venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Node / Vue
+frontend/node_modules/
+node_modules/
+frontend/dist/
+dist/
+coverage/
+
+# IDE
+.vscode/
+.idea/
+
+# Logs / temporary files
+*.log
+*.tmp
+*.swp
+
+# Local database / cache
+*.sqlite
+*.sqlite3
+
+# Archives
+*.zip
+
+# Credentials / keys
+*.pem
+*.key
+*.crt
+credentials.json
+secrets.json

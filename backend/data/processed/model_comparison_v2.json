@@ -1,0 +1,30 @@
+[
+    {
+        "rank": 1,
+        "model": "XGBoost",
+        "mae": 4.7752,
+        "rmse": 6.1025,
+        "r2": 0.9139
+    },
+    {
+        "rank": 2,
+        "model": "Gradient Boosting",
+        "mae": 4.8638,
+        "rmse": 6.2022,
+        "r2": 0.9111
+    },
+    {
+        "rank": 3,
+        "model": "Linear Regression",
+        "mae": 5.4902,
+        "rmse": 6.8915,
+        "r2": 0.8902
+    },
+    {
+        "rank": 4,
+        "model": "Random Forest",
+        "mae": 5.6822,
+        "rmse": 7.1616,
+        "r2": 0.8814
+    }
+]

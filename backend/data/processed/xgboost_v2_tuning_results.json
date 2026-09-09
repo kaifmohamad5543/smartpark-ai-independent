@@ -1,0 +1,31 @@
+{
+    "model_version": "2.0",
+    "dataset_type": "synthetic",
+    "tuning_method": "RandomizedSearchCV",
+    "iterations": 30,
+    "cv_folds": 5,
+    "scoring": "RMSE",
+    "best_cross_validation_rmse": 6.0172,
+    "best_parameters": {
+        "subsample": 0.7,
+        "reg_lambda": 3.0,
+        "reg_alpha": 0.01,
+        "n_estimators": 650,
+        "min_child_weight": 7,
+        "max_depth": 2,
+        "learning_rate": 0.08,
+        "colsample_bytree": 0.9
+    },
+    "feature_columns": [
+        "hour",
+        "day_of_week",
+        "previous_occupancy",
+        "current_occupancy",
+        "traffic_level",
+        "weather",
+        "event_level",
+        "parking_price",
+        "total_spaces"
+    ],
+    "records_used": 8000
+}

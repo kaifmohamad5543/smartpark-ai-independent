@@ -1,0 +1,24 @@
+{
+    "model_version": "2.0-tuned",
+    "model": "XGBoost Regressor",
+    "dataset_type": "synthetic",
+    "evaluation_seed": 2026,
+    "evaluation_records": 2500,
+    "feature_count": 9,
+    "feature_columns": [
+        "hour",
+        "day_of_week",
+        "previous_occupancy",
+        "current_occupancy",
+        "traffic_level",
+        "weather",
+        "event_level",
+        "parking_price",
+        "total_spaces"
+    ],
+    "mae": 4.7191,
+    "rmse": 5.9884,
+    "r2": 0.9159,
+    "median_absolute_error": 3.8522,
+    "p90_absolute_error": 9.8915
+}

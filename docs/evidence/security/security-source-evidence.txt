@@ -1,0 +1,188 @@
+SMARTPARK AI - SECURITY IMPLEMENTATION EVIDENCE
+================================================
+
+===== AUTHENTICATION / JWT / PASSWORD HASHING =====
+app/utils/security.py:5:from pwdlib import PasswordHash
+app/utils/security.py:10:password_hash = PasswordHash.recommended()
+app/utils/security.py:13:def hash_password(password: str) -> str:
+app/utils/security.py:17:def verify_password(
+app/utils/security.py:27:def create_access_token(
+app/utils/security.py:43:    return jwt.encode(
+app/utils/security.py:52:        return jwt.decode(
+app/routes/auth.py:18:from app.utils.security import create_access_token
+app/routes/auth.py:80:    access_token = create_access_token(
+app/services/auth_service.py:8:from app.utils.security import hash_password, verify_password
+app/services/auth_service.py:40:        hashed_password=hash_password(user_data.password),
+app/services/auth_service.py:65:    if not verify_password(
+
+===== ADMIN ROLE PROTECTION =====
+app/utils/dependencies.py:59:            status_code=status.HTTP_403_FORBIDDEN,
+app/utils/dependencies.py:66:def require_admin(
+app/utils/dependencies.py:69:    if current_user.role != "admin":
+app/utils/dependencies.py:71:            status_code=status.HTTP_403_FORBIDDEN,
+app/routes/auth.py:76:            status_code=status.HTTP_403_FORBIDDEN,
+app/routes/admin_users.py:22:from app.utils.dependencies import require_admin
+app/routes/admin_users.py:37:    admin_user: User = Depends(require_admin)
+app/routes/admin_users.py:52:    admin_user: User = Depends(require_admin)
+app/routes/admin_analytics.py:18:from app.utils.dependencies import require_admin
+app/routes/admin_analytics.py:33:    admin_user: User = Depends(require_admin)
+app/routes/admin_analytics.py:46:    admin_user: User = Depends(require_admin)
+app/routes/admin_analytics.py:60:    admin_user: User = Depends(require_admin)
+app/routes/admin_analytics.py:81:    admin_user: User = Depends(require_admin)
+app/routes/admin_analytics.py:107:    admin_user: User = Depends(require_admin)
+app/routes/admin_reviews.py:22:from app.utils.dependencies import require_admin
+app/routes/admin_reviews.py:37:    admin_user: User = Depends(require_admin),
+app/routes/admin_reviews.py:51:    admin_user: User = Depends(require_admin),
+app/routes/admin_payments.py:21:from app.utils.dependencies import require_admin
+app/routes/admin_payments.py:36:    admin_user: User = Depends(require_admin)
+app/routes/admin_payments.py:50:    admin_user: User = Depends(require_admin)
+app/routes/admin_notifications.py:20:from app.utils.dependencies import require_admin
+app/routes/admin_notifications.py:35:    admin_user: User = Depends(require_admin),
+app/routes/admin_notifications.py:50:    admin_user: User = Depends(require_admin),
+app/routes/admin_reservations.py:15:from app.utils.dependencies import require_admin
+app/routes/admin_reservations.py:30:    admin_user: User = Depends(require_admin)
+app/routes/admin_parking.py:33:from app.utils.dependencies import require_admin
+app/routes/admin_parking.py:48:    admin_user: User = Depends(require_admin)
+app/routes/admin_parking.py:63:    admin_user: User = Depends(require_admin)
+app/routes/admin_parking.py:88:    admin_user: User = Depends(require_admin)
+app/routes/admin_parking.py:125:    admin_user: User = Depends(require_admin)
+app/routes/admin_parking.py:161:    admin_user: User = Depends(require_admin)
+app/routes/admin_parking.py:189:    admin_user: User = Depends(require_admin)
+app/routes/admin_parking.py:226:    admin_user: User = Depends(require_admin)
+
+===== AUTHENTICATED USER PROTECTION =====
+app/utils/dependencies.py:16:def get_current_user(
+app/utils/dependencies.py:26:            status_code=status.HTTP_401_UNAUTHORIZED,
+app/utils/dependencies.py:34:            status_code=status.HTTP_401_UNAUTHORIZED,
+app/utils/dependencies.py:42:            status_code=status.HTTP_401_UNAUTHORIZED,
+app/utils/dependencies.py:53:            status_code=status.HTTP_401_UNAUTHORIZED,
+app/utils/dependencies.py:67:    current_user: User = Depends(get_current_user)
+app/utils/dependencies.py:69:    if current_user.role != "admin":
+app/utils/dependencies.py:75:    return current_user
+app/routes/parking_sessions.py:12:from app.utils.dependencies import get_current_user
+app/routes/parking_sessions.py:27:    current_user: User = Depends(get_current_user)
+app/routes/parking_sessions.py:31:        user_id=current_user.id
+app/routes/auth.py:17:from app.utils.dependencies import get_current_user
+app/routes/auth.py:69:            status_code=status.HTTP_401_UNAUTHORIZED,
+app/routes/auth.py:99:    current_user: User = Depends(get_current_user)
+app/routes/auth.py:101:    return current_user
+app/routes/predictions.py:16:from app.utils.dependencies import get_current_user
+app/routes/predictions.py:33:    current_user: User = Depends(get_current_user)
+app/routes/predictions.py:38:            user_id=current_user.id,
+app/routes/predictions.py:55:    current_user: User = Depends(get_current_user)
+app/routes/predictions.py:59:        user_id=current_user.id
+app/routes/predictions.py:68:    current_user: User = Depends(get_current_user)
+app/routes/reviews.py:18:from app.utils.dependencies import get_current_user
+app/routes/reviews.py:35:    current_user: User = Depends(get_current_user)
+app/routes/reviews.py:40:            user_id=current_user.id,
+app/routes/payments.py:18:from app.utils.dependencies import get_current_user
+app/routes/payments.py:33:    current_user: User = Depends(get_current_user)
+app/routes/payments.py:37:        user_id=current_user.id
+app/routes/payments.py:48:    current_user: User = Depends(get_current_user)
+app/routes/payments.py:52:        user_id=current_user.id,
+app/routes/recommendations.py:13:from app.utils.dependencies import get_current_user
+app/routes/recommendations.py:29:    current_user: User = Depends(get_current_user)
+app/routes/vehicles.py:19:from app.utils.dependencies import get_current_user
+app/routes/vehicles.py:36:    current_user: User = Depends(get_current_user)
+app/routes/vehicles.py:40:        user_id=current_user.id,
+app/routes/vehicles.py:51:    current_user: User = Depends(get_current_user)
+app/routes/vehicles.py:55:        user_id=current_user.id
+app/routes/vehicles.py:67:    current_user: User = Depends(get_current_user)
+app/routes/vehicles.py:71:        user_id=current_user.id,
+app/routes/vehicles.py:95:    current_user: User = Depends(get_current_user)
+app/routes/vehicles.py:101:        user_id=current_user.id,
+app/routes/notifications.py:24:from app.utils.dependencies import get_current_user
+app/routes/notifications.py:39:    current_user: User = Depends(get_current_user)
+app/routes/notifications.py:43:        user_id=current_user.id
+app/routes/notifications.py:53:    current_user: User = Depends(get_current_user)
+app/routes/notifications.py:57:        user_id=current_user.id
+app/routes/notifications.py:71:    current_user: User = Depends(get_current_user)
+app/routes/notifications.py:75:        user_id=current_user.id
+app/routes/notifications.py:91:    current_user: User = Depends(get_current_user)
+app/routes/notifications.py:95:        user_id=current_user.id,
+app/routes/reservations.py:24:from app.utils.dependencies import get_current_user
+app/routes/reservations.py:41:    current_user: User = Depends(get_current_user)
+app/routes/reservations.py:46:            user_id=current_user.id,
+app/routes/reservations.py:65:    current_user: User = Depends(get_current_user)
+app/routes/reservations.py:69:        user_id=current_user.id
+app/routes/reservations.py:80:    current_user: User = Depends(get_current_user)
+app/routes/reservations.py:84:        user_id=current_user.id,
+app/routes/reservations.py:114:    current_user: User = Depends(get_current_user)
+app/routes/reservations.py:123:        user_id=current_user.id,
+app/routes/reservations.py:162:    current_user: User = Depends(get_current_user)
+app/routes/reservations.py:168:        user_id=current_user.id,
+app/routes/wallet.py:17:from app.utils.dependencies import get_current_user
+app/routes/wallet.py:32:    current_user: User = Depends(get_current_user)
+app/routes/wallet.py:36:        user_id=current_user.id
+app/routes/wallet.py:47:    current_user: User = Depends(get_current_user)
+app/routes/wallet.py:51:        user_id=current_user.id,
+app/routes/wallet.py:67:    current_user: User = Depends(get_current_user)
+app/routes/wallet.py:71:        user_id=current_user.id
+
+===== INPUT VALIDATION EXAMPLES =====
+app/schemas/user.py:4:from pydantic import BaseModel, ConfigDict, EmailStr, Field
+app/schemas/user.py:8:    full_name: str = Field(
+app/schemas/user.py:13:    email: EmailStr
+app/schemas/user.py:15:    password: str = Field(
+app/schemas/user.py:22:    email: EmailStr
+app/schemas/user.py:29:    email: EmailStr
+app/schemas/reservation.py:5:from pydantic import BaseModel, ConfigDict, Field, model_validator
+app/schemas/reservation.py:15:    @model_validator(mode="after")
+app/schemas/reservation.py:76:    booking_code: str = Field(
+app/schemas/admin_notification.py:5:from pydantic import BaseModel, Field, model_validator
+app/schemas/admin_notification.py:35:    title: str = Field(
+app/schemas/admin_notification.py:40:    message: str = Field(
+app/schemas/admin_notification.py:45:    @model_validator(mode="after")
+app/schemas/parking.py:8:    name: str = Field(min_length=2, max_length=150)
+app/schemas/parking.py:9:    address: str = Field(min_length=5, max_length=255)
+app/schemas/parking.py:10:    city: str = Field(min_length=2, max_length=100)
+app/schemas/parking.py:11:    postcode: str = Field(min_length=3, max_length=20)
+app/schemas/parking.py:13:    latitude: float = Field(ge=-90, le=90)
+app/schemas/parking.py:14:    longitude: float = Field(ge=-180, le=180)
+app/schemas/parking.py:16:    total_spaces: int = Field(gt=0)
+app/schemas/parking.py:17:    hourly_rate: float = Field(ge=0)
+app/schemas/vehicle.py:7:    registration_number: str = Field(min_length=2, max_length=20)
+app/schemas/vehicle.py:8:    make: str = Field(min_length=1, max_length=60)
+app/schemas/vehicle.py:9:    model: str = Field(min_length=1, max_length=60)
+app/schemas/vehicle.py:10:    colour: str = Field(min_length=1, max_length=40)
+app/schemas/vehicle.py:11:    vehicle_type: str = Field(default="car", min_length=2, max_length=30)
+app/schemas/vehicle.py:16:    registration_number: str | None = Field(
+app/schemas/vehicle.py:21:    make: str | None = Field(default=None, min_length=1, max_length=60)
+app/schemas/vehicle.py:22:    model: str | None = Field(default=None, min_length=1, max_length=60)
+app/schemas/vehicle.py:23:    colour: str | None = Field(default=None, min_length=1, max_length=40)
+app/schemas/vehicle.py:24:    vehicle_type: str | None = Field(default=None, min_length=2, max_length=30)
+app/schemas/review.py:10:    rating: int = Field(
+app/schemas/review.py:15:    comment: str | None = Field(
+app/schemas/prediction.py:11:    hour: int = Field(ge=0, le=23)
+app/schemas/prediction.py:12:    day_of_week: int = Field(ge=0, le=6)
+app/schemas/prediction.py:14:    previous_occupancy: float = Field(
+app/schemas/prediction.py:19:    traffic_level: int = Field(
+app/schemas/prediction.py:24:    weather: int = Field(
+app/schemas/prediction.py:29:    event_level: int = Field(
+app/schemas/recommendation.py:17:    destination_latitude: float = Field(
+app/schemas/recommendation.py:22:    destination_longitude: float = Field(
+app/schemas/recommendation.py:27:    hour: int = Field(
+app/schemas/recommendation.py:32:    day_of_week: int = Field(
+app/schemas/recommendation.py:37:    traffic_level: int = Field(
+app/schemas/recommendation.py:42:    weather: int = Field(
+app/schemas/recommendation.py:47:    event_level: int = Field(
+app/schemas/admin_parking.py:5:from pydantic import BaseModel, ConfigDict, Field, model_validator
+app/schemas/admin_parking.py:9:    name: str = Field(
+app/schemas/admin_parking.py:14:    address: str = Field(
+app/schemas/admin_parking.py:19:    city: str = Field(
+app/schemas/admin_parking.py:24:    postcode: str = Field(
+app/schemas/admin_parking.py:29:    latitude: float = Field(
+app/schemas/admin_parking.py:34:    longitude: float = Field(
+app/schemas/admin_parking.py:39:    initial_spaces: int = Field(
+app/schemas/admin_parking.py:44:    hourly_rate: float = Field(
+app/schemas/admin_parking.py:56:    @model_validator(mode="after")
+app/schemas/admin_parking.py:79:    name: str | None = Field(
+app/schemas/admin_parking.py:85:    address: str | None = Field(
+app/schemas/admin_parking.py:91:    city: str | None = Field(
+app/schemas/admin_parking.py:97:    postcode: str | None = Field(
+app/schemas/admin_parking.py:103:    latitude: float | None = Field(
+app/schemas/admin_parking.py:109:    longitude: float | None = Field(
+app/schemas/admin_parking.py:115:    hourly_rate: float | None = Field(
+app/schemas/admin_parking.py:172:    space_number: str = Field(
+app/schemas/admin_parking.py:190:    space_number: str | None = Field(
+app/schemas/wallet.py:21:    amount: Decimal = Field(

@@ -1,0 +1,250 @@
+SMARTPARK AI - FINAL FASTAPI ENDPOINT EVIDENCE
+======================================================================
+
+API title: SmartPark AI API
+API version: 1.0.0
+Documented paths: 53
+Documented operations: 59
+
+GET     /
+        Summary: Root
+
+GET     /api/admin/analytics/ai-demand
+        Tag: Admin Analytics
+        Summary: Ai Demand Analytics
+
+GET     /api/admin/analytics/locations
+        Tag: Admin Analytics
+        Summary: Location Performance
+
+GET     /api/admin/analytics/model-performance
+        Tag: Admin Analytics
+        Summary: Model Performance
+
+GET     /api/admin/analytics/overview
+        Tag: Admin Analytics
+        Summary: Analytics Overview
+
+GET     /api/admin/analytics/reservation-trends
+        Tag: Admin Analytics
+        Summary: Reservation Trends
+
+GET     /api/admin/notifications
+        Tag: Admin Notification Management
+        Summary: List Admin Notifications
+
+POST    /api/admin/notifications/send
+        Tag: Admin Notification Management
+        Summary: Send Notification From Admin
+
+GET     /api/admin/parking/locations
+        Tag: Admin Parking Management
+        Summary: List Admin Parking Locations
+
+POST    /api/admin/parking/locations
+        Tag: Admin Parking Management
+        Summary: Create Parking Location
+
+PATCH   /api/admin/parking/locations/{parking_location_id}
+        Tag: Admin Parking Management
+        Summary: Update Parking Location
+
+GET     /api/admin/parking/locations/{parking_location_id}/spaces
+        Tag: Admin Parking Management
+        Summary: List Admin Parking Spaces
+
+POST    /api/admin/parking/locations/{parking_location_id}/spaces
+        Tag: Admin Parking Management
+        Summary: Create Parking Space
+
+PATCH   /api/admin/parking/locations/{parking_location_id}/status
+        Tag: Admin Parking Management
+        Summary: Update Parking Location Status
+
+PATCH   /api/admin/parking/spaces/{parking_space_id}
+        Tag: Admin Parking Management
+        Summary: Update Parking Space
+
+GET     /api/admin/payments
+        Tag: Admin Payments
+        Summary: List Admin Payments
+
+POST    /api/admin/payments/{payment_id}/refund
+        Tag: Admin Payments
+        Summary: Refund Payment
+
+GET     /api/admin/reservations
+        Tag: Admin Reservation Management
+        Summary: List Admin Reservations
+
+GET     /api/admin/reviews
+        Tag: Admin Review Management
+        Summary: List Admin Reviews
+
+DELETE  /api/admin/reviews/{review_id}
+        Tag: Admin Review Management
+        Summary: Remove Admin Review
+
+GET     /api/admin/users
+        Tag: Admin User Management
+        Summary: List Admin Users
+
+PATCH   /api/admin/users/{user_id}/status
+        Tag: Admin User Management
+        Summary: Update Admin User Status
+
+POST    /api/auth/login
+        Tag: Authentication
+        Summary: Login User
+
+GET     /api/auth/me
+        Tag: Authentication
+        Summary: Get My Profile
+
+POST    /api/auth/register
+        Tag: Authentication
+        Summary: Register User
+
+GET     /api/notifications
+        Tag: Notifications
+        Summary: List Notifications
+
+PATCH   /api/notifications/read-all
+        Tag: Notifications
+        Summary: Read All Notifications
+
+GET     /api/notifications/unread-count
+        Tag: Notifications
+        Summary: Unread Notification Count
+
+PATCH   /api/notifications/{notification_id}/read
+        Tag: Notifications
+        Summary: Read Notification
+
+GET     /api/open-data/parking-bays
+        Tag: London Open Data
+        Summary: List External Parking Bays
+
+GET     /api/open-data/parking-bays/stats
+        Tag: London Open Data
+        Summary: Parking Bay Statistics
+
+GET     /api/open-data/parking-bays/{source_identifier}
+        Tag: London Open Data
+        Summary: Get External Parking Bay
+
+GET     /api/parking-sessions
+        Tag: Parking History
+        Summary: Parking History
+
+GET     /api/parking/locations
+        Tag: Parking
+        Summary: List Parking Locations
+
+GET     /api/parking/locations/{parking_location_id}
+        Tag: Parking
+        Summary: Get Parking Location
+
+GET     /api/parking/locations/{parking_location_id}/availability
+        Tag: Parking
+        Summary: Parking Availability
+
+GET     /api/payments
+        Tag: Payments
+        Summary: Payment History
+
+GET     /api/payments/{payment_id}
+        Tag: Payments
+        Summary: Payment Details
+
+GET     /api/predictions
+        Tag: AI Predictions
+        Summary: Prediction History
+
+POST    /api/predictions
+        Tag: AI Predictions
+        Summary: Predict Parking Demand
+
+GET     /api/predictions/feature-importance
+        Tag: AI Predictions
+        Summary: Feature Importance
+
+POST    /api/recommendations
+        Tag: Parking Recommendations
+        Summary: Recommend Parking
+
+GET     /api/reservations
+        Tag: Reservations
+        Summary: List My Reservations
+
+POST    /api/reservations
+        Tag: Reservations
+        Summary: Make Reservation
+
+POST    /api/reservations/check-in
+        Tag: Reservations
+        Summary: Check In
+
+PATCH   /api/reservations/{reservation_id}/cancel
+        Tag: Reservations
+        Summary: Cancel My Reservation
+
+POST    /api/reservations/{reservation_id}/check-out
+        Tag: Reservations
+        Summary: Check Out
+
+POST    /api/reviews
+        Tag: Reviews
+        Summary: Add Review
+
+GET     /api/reviews/location/{parking_location_id}
+        Tag: Reviews
+        Summary: List Location Reviews
+
+GET     /api/reviews/location/{parking_location_id}/summary
+        Tag: Reviews
+        Summary: Location Rating Summary
+
+GET     /api/vehicles
+        Tag: Vehicles
+        Summary: List My Vehicles
+
+POST    /api/vehicles
+        Tag: Vehicles
+        Summary: Add Vehicle
+
+PATCH   /api/vehicles/{vehicle_id}
+        Tag: Vehicles
+        Summary: Edit Vehicle
+
+DELETE  /api/vehicles/{vehicle_id}
+        Tag: Vehicles
+        Summary: Remove Vehicle
+
+GET     /api/wallet
+        Tag: Digital Wallet
+        Summary: Wallet Details
+
+POST    /api/wallet/top-up
+        Tag: Digital Wallet
+        Summary: Wallet Top Up
+
+GET     /api/wallet/transactions
+        Tag: Digital Wallet
+        Summary: Wallet Transactions
+
+GET     /health
+        Summary: Health Check
+
+GET     /health/database
+        Summary: Database Health Check
+
+======================================================================
+LONDON OPEN DATA ENDPOINTS
+======================================================================
+
+Open Data operations: 3
+
+GET /api/open-data/parking-bays
+GET /api/open-data/parking-bays/stats
+GET /api/open-data/parking-bays/{source_identifier}

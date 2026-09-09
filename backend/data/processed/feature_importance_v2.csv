@@ -1,0 +1,10 @@
+feature,display_name,importance,importance_percentage
+current_occupancy,Current Occupancy,0.464127,46.41
+traffic_level,Traffic Level,0.17728,17.73
+event_level,Event Level,0.123697,12.37
+previous_occupancy,Previous Occupancy,0.078221,7.82
+parking_price,Parking Price,0.048589,4.86
+hour,Hour of Day,0.041197,4.12
+weather,Weather,0.039588,3.96
+day_of_week,Day of Week,0.018677,1.87
+total_spaces,Parking Capacity,0.008624,0.86

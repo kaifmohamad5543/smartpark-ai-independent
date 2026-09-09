@@ -1,0 +1,23 @@
+# Python environment
+venv/
+.venv/
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Python generated files
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# macOS
+.DS_Store
+
+# ML artefacts
+app/ml/model/*.joblib
+
+# Keep reproducible V2 models used by the dissertation
+!app/ml/model/xgboost_parking_demand_v2.joblib
+!app/ml/model/xgboost_parking_demand_v2_tuned.joblib

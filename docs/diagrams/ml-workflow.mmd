@@ -1,0 +1,36 @@
+flowchart LR
+
+    D[8000-Row Synthetic Development Dataset]
+    P[Data Preparation]
+    F[9 Input Features]
+    C[Model Comparison]
+    X[XGBoost Selected]
+    T[Hyperparameter Tuning]
+    M[Final Tuned XGBoost Model]
+    E[Unseen Synthetic Evaluation]
+    J[Joblib Model Artifact]
+    API[FastAPI Prediction Service]
+    UI[Vue Prediction Interface]
+    R[Parking Recommendation Service]
+    DP[AI-Assisted Dynamic Pricing]
+    A[Admin AI Analytics]
+
+    D --> P
+    P --> F
+    F --> C
+    C --> X
+    X --> T
+    T --> M
+    M --> E
+    M --> J
+    J --> API
+    API --> UI
+    API --> R
+    API --> DP
+    API --> A
+
+    C -. compared .-> GB[Gradient Boosting]
+    C -. compared .-> RF[Random Forest]
+    C -. compared .-> LR[Linear Regression]
+
+    E --> METRICS["MAE 4.7191<br/>RMSE 5.9884<br/>R² 0.9159"]

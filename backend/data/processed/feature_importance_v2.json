@@ -1,0 +1,61 @@
+{
+    "model_version": "2.0-tuned",
+    "dataset_type": "synthetic",
+    "importance_method": "XGBoost model-native feature importance",
+    "features": [
+        {
+            "feature": "current_occupancy",
+            "display_name": "Current Occupancy",
+            "importance": 0.464127,
+            "importance_percentage": 46.41
+        },
+        {
+            "feature": "traffic_level",
+            "display_name": "Traffic Level",
+            "importance": 0.17728,
+            "importance_percentage": 17.73
+        },
+        {
+            "feature": "event_level",
+            "display_name": "Event Level",
+            "importance": 0.123697,
+            "importance_percentage": 12.37
+        },
+        {
+            "feature": "previous_occupancy",
+            "display_name": "Previous Occupancy",
+            "importance": 0.078221,
+            "importance_percentage": 7.82
+        },
+        {
+            "feature": "parking_price",
+            "display_name": "Parking Price",
+            "importance": 0.048589,
+            "importance_percentage": 4.86
+        },
+        {
+            "feature": "hour",
+            "display_name": "Hour of Day",
+            "importance": 0.041197,
+            "importance_percentage": 4.12
+        },
+        {
+            "feature": "weather",
+            "display_name": "Weather",
+            "importance": 0.039588,
+            "importance_percentage": 3.96
+        },
+        {
+            "feature": "day_of_week",
+            "display_name": "Day of Week",
+            "importance": 0.018677,
+            "importance_percentage": 1.87
+        },
+        {
+            "feature": "total_spaces",
+            "display_name": "Parking Capacity",
+            "importance": 0.008624,
+            "importance_percentage": 0.86
+        }
+    ]
+}

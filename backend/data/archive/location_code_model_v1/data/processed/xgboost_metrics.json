@@ -1,0 +1,11 @@
+{
+    "model": "XGBoost Regression",
+    "dataset_rows": 5000,
+    "training_rows": 4000,
+    "testing_rows": 1000,
+    "test_size": 0.2,
+    "random_seed": 42,
+    "mae": 4.9265,
+    "rmse": 6.1794,
+    "r2": 0.9072
+}
